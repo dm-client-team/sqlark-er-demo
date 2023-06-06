@@ -1,4 +1,4 @@
-export const nodes = [
+export const nodes:NodeData[]= [
   {
     name: 'bd_Quota_Apply',
     originalKey: 'bd_Quota_Apply',
@@ -3619,6 +3619,22 @@ export const nodes = [
   },
 ]
 
+export type NodeData = {
+  name: string;
+  originalKey: string;
+  label: string;
+  module: string;
+  fields: ({
+      name: string;
+      originalKey: string;
+      type?: string;
+      typeMeta?: {
+          relationModel: string;
+          type: string;
+      };
+      label: string;
+  })[];
+}
 
 export const edges = nodes.flatMap(sourceNode => {
   return sourceNode.fields.map(field => {

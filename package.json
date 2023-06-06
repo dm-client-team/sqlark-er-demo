@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@antv/g6": "^4.8.14",
+    "@antv/layout": "^0.3.22",
+    "@antv/x6": "^2.11.1",
+    "add": "^2.0.6",
     "vue": "^3.3.2"
   },
   "devDependencies": {
