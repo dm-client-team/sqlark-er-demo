@@ -1,5 +1,6 @@
 import { NodeData } from "@/mock/model-test";
-import G6, { Graph, IGroup } from '@antv/g6';
+import G6, { Graph, IGroup, type IBBox, type IPoint } from '@antv/g6';
+import { ErnodeScroll, ZoomCanvasOutsideNode } from "./behavior";
 
 type Size = { width: number, height: number }
 
@@ -14,7 +15,8 @@ const style = {
     radius: 6
 }
 
-const height = (node: NodeData) => style.headerHeight + style.fieldHeight * node.fields.length
+const itemCount = 10
+const height = (node: NodeData) => style.headerHeight + style.fieldHeight * (node.fields.length > itemCount ? itemCount : node.fields.length)
 const xy = (top: number, left: number, containerSize: Size) => ({
     x: left - (containerSize.width / 2),
     y: top - (containerSize.height / 2)
@@ -22,13 +24,13 @@ const xy = (top: number, left: number, containerSize: Size) => ({
 const fieldTop = (index: number) => {
     return style.headerHeight + index * style.fieldHeight + (style.fieldHeight - style.fieldFontSize) / 2
 }
-const size = ({ fields }: { fields: any[] }) => [style.width + 20, style.headerHeight + style.fieldHeight * fields.length + 20]
+const size = ({ fields }: { fields: any[] }) => [style.width, style.headerHeight + style.fieldHeight * fields.length]
 const render = (cfg: NodeData, group: IGroup) => {
 
     const size: Size = { height: height(cfg), width: style.width }
-    const { radius, headerHeight, width, themeColor, fieldFontSize, textColor } = style
+    const { radius, headerHeight, width, themeColor, fieldFontSize, textColor, fieldHeight } = style
 
-    const headerSize = { height: headerHeight, width, }
+    const headerSize = { height: headerHeight, width }
 
     group.addShape('rect', {
         attrs: {
@@ -40,7 +42,6 @@ const render = (cfg: NodeData, group: IGroup) => {
         name: 'title-box',
         draggable: true,
     });
-
     group.addShape('image', {
         attrs: {
             ...xy(8, 8, size),
@@ -51,8 +52,6 @@ const render = (cfg: NodeData, group: IGroup) => {
         },
         name: 'node-icon',
     });
-
-
     group.addShape('text', {
         attrs: {
             ...xy(15, 48, size),
@@ -64,14 +63,92 @@ const render = (cfg: NodeData, group: IGroup) => {
         name: 'title-text',
     });
 
+    if (cfg.fields.length <= itemCount) {
+
+        cfg.fields.forEach((field, index) => {
+
+            // title text
+            group.addShape('text', {
+                attrs: {
+                    textBaseline: 'top',
+                    ...xy(fieldTop(index), 12, size),
+                    fontSize: fieldFontSize,
+                    text: field.label,
+                    fill: field.typeMeta ? themeColor : textColor,
+                }, name: 'field-name-' + index,
+            });
+
+            // title text
+            group.addShape('text', {
+                attrs: {
+                    textBaseline: 'top',
+                    ...xy(fieldTop(index), width - 12, size),
+                    fontSize: fieldFontSize,
+                    text: field.type,
+                    fill: field.typeMeta ? themeColor : textColor,
+                    textAlign: 'right'
+                },
+                name: 'field-type-' + index,
+            });
+
+        })
+
+        return
+    }
+
+    // 绘制字段信息
+
+    const listContainer = group.addGroup({})
+
+    const listSize = { width, height: itemCount * fieldHeight }
+    listContainer.setClip({
+        type: "rect",
+        attrs: {
+            ...xy(headerHeight, 0, size),
+            ...listSize
+        }
+    })
+
+    // 绘制滚动条
+    const barStyle = {
+        width: 4,
+        padding: 0,
+        boxStyle: {
+            stroke: "#00000022",
+        },
+        innerStyle: {
+            fill: "#00000022",
+        },
+    };
+
+    listContainer.addShape("rect", {
+        attrs: {
+            ...xy(headerHeight, width - barStyle.width, size),
+            width: barStyle.width,
+            height: listSize.height,
+            ...barStyle.boxStyle,
+        },
+    });
+
+    const scrollBarHeight = itemCount / cfg.fields.length * listSize.height
+    const hideCount = cfg.fields.length - itemCount
+    const scrollBarTop = (cfg.startIndex / hideCount) * (listSize.height - scrollBarHeight)
+    listContainer.addShape("rect", {
+        attrs: {
+            ...xy(headerHeight + scrollBarTop, width - barStyle.width, size),
+            width: barStyle.width,
+            height: scrollBarHeight,
+            ...barStyle.innerStyle,
+        }
+    })
 
     cfg.fields.forEach((field, index) => {
 
         // title text
-        group.addShape('text', {
+        listContainer.addShape('text', {
             attrs: {
                 textBaseline: 'top',
-                ...xy(fieldTop(index), 12, size),
+                ...xy(fieldTop(index - cfg.startIndex), 12, size),
                 fontSize: fieldFontSize,
                 text: field.label,
                 fill: field.typeMeta ? themeColor : textColor,
@@ -79,10 +156,10 @@ const render = (cfg: NodeData, group: IGroup) => {
         });
 
         // title text
-        group.addShape('text', {
+        listContainer.addShape('text', {
             attrs: {
                 textBaseline: 'top',
-                ...xy(fieldTop(index), width - 12, size),
+                ...xy(fieldTop(index - cfg.startIndex), width - 12, size),
                 fontSize: fieldFontSize,
                 text: field.type,
                 fill: field.typeMeta ? themeColor : textColor,
@@ -92,9 +169,6 @@ const render = (cfg: NodeData, group: IGroup) => {
         });
 
     })
-
-
-
 
 }
 const roundAnchor = (size = 1) => {
@@ -109,7 +183,20 @@ const roundAnchor = (size = 1) => {
 
     return [...left, ...bottom, ...right, ...top]
 }
-
+const isInBBox = (point:IPoint, bbox:IBBox) => {
+    const {
+      x,
+      y
+    } = point;
+    const {
+      minX,
+      minY,
+      maxX,
+      maxY
+    } = bbox;
+  
+    return x < maxX && x > minX && y > minY && y < maxY;
+  };
 export class ERDg6 {
     nodes: NodeData[] = []
     static init() {
@@ -118,10 +205,11 @@ export class ERDg6 {
             {
                 draw: ERDg6.draw as any,
                 getAnchorPoints: ERDg6.anchor,
-                update(cfg, node) { }
             },
-            'rect',
         );
+
+        G6.registerBehavior("dice-er-scroll",ErnodeScroll );
+        G6.registerBehavior("zoom-canvas-outside-node",ZoomCanvasOutsideNode );
     }
     static draw = (cfg: NodeData, group?: IGroup) => {
         const size: Size = { height: height(cfg), width: style.width }
@@ -164,7 +252,7 @@ export class ERDg6 {
             // translate the graph to align the canvas's center, support by v3.5.1
             fitCenter: true,
             modes: {
-                default: ['drag-canvas', 'drag-node', 'zoom-canvas'],
+                default: ['drag-canvas', 'drag-node', 'zoom-canvas-outside-node','dice-er-scroll',],
             },
             defaultNode: {
                 type: 'erd-nodes',

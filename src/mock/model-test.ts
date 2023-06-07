@@ -1,4 +1,4 @@
-export const nodes:NodeData[]= [
+export const nodes: NodeData[] = [
   {
     name: 'bd_Quota_Apply',
     originalKey: 'bd_Quota_Apply',
@@ -3617,22 +3617,23 @@ export const nodes:NodeData[]= [
       },
     ],
   },
-]
+].map(v => Object.assign(v, { startIndex: 0 }))
 
 export type NodeData = {
   name: string;
   originalKey: string;
   label: string;
   module: string;
+  startIndex: number,
   fields: ({
-      name: string;
-      originalKey: string;
-      type?: string;
-      typeMeta?: {
-          relationModel: string;
-          type: string;
-      };
-      label: string;
+    name: string;
+    originalKey: string;
+    type?: string;
+    typeMeta?: {
+      relationModel: string;
+      type: string;
+    };
+    label: string;
   })[];
 }
 

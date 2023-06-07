@@ -7,6 +7,12 @@ dependencies:
   '@antv/layout':
     specifier: ^0.3.22
     version: 0.3.22(dagre@0.8.5)
+  '@antv/matrix-util':
+    specifier: ^3.0.4
+    version: r2.cnpmjs.org/@antv/matrix-util@3.0.4
+  '@antv/util':
+    specifier: ^3.3.2
+    version: 3.3.2
   '@antv/x6':
     specifier: ^2.11.1
     version: 2.11.1
