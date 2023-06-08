@@ -97,6 +97,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'bd_Pay_Apply',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: 'FID',
@@ -258,6 +259,7 @@ export const nodes: NodeData[] = [
         originalKey: 'PayApplyId',
         typeMeta: {
           relationModel: 'bd_Pay_Apply',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '划款申请Id',
@@ -342,6 +344,7 @@ export const nodes: NodeData[] = [
         originalKey: 'DraftId',
         typeMeta: {
           relationModel: 'bd_Draft_Element',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '票面Id',
@@ -372,6 +375,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'bd_Pay_Apply',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: 'FID',
@@ -426,6 +430,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'bd_Quota_Apply',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: 'FID',
@@ -612,6 +617,7 @@ export const nodes: NodeData[] = [
         originalKey: 'MessageId',
         typeMeta: {
           relationModel: 'bd_Message',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '消息Id',
@@ -802,6 +808,7 @@ export const nodes: NodeData[] = [
         originalKey: 'ew_Cat',
         typeMeta: {
           relationModel: 'erp_WarehouseCat',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '所属分类',
@@ -1014,6 +1021,7 @@ export const nodes: NodeData[] = [
         originalKey: 'eg_Cat',
         typeMeta: {
           relationModel: 'erp_GoodsCat',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '所属类别',
@@ -1086,6 +1094,7 @@ export const nodes: NodeData[] = [
         originalKey: 'egp_GoodsId',
         typeMeta: {
           relationModel: 'erp_Goods',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '商品',
@@ -1396,6 +1405,7 @@ export const nodes: NodeData[] = [
         originalKey: 'ec_Cat',
         typeMeta: {
           relationModel: 'erp_CustomerCat',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '所属类别',
@@ -1510,6 +1520,7 @@ export const nodes: NodeData[] = [
         originalKey: 'es_Cat',
         typeMeta: {
           relationModel: 'erp_SupplierCat',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '所属类别',
@@ -1794,6 +1805,7 @@ export const nodes: NodeData[] = [
         originalKey: 'eu_Department',
         typeMeta: {
           relationModel: 'erp_DepartmentInfo',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '所属部门',
@@ -1922,6 +1934,7 @@ export const nodes: NodeData[] = [
         originalKey: 'ec_ForeignKey',
         typeMeta: {
           relationModel: 'erp_CustomerInfo',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '外键',
@@ -2024,6 +2037,7 @@ export const nodes: NodeData[] = [
         originalKey: 'eba_ForeignKey',
         typeMeta: {
           relationModel: 'erp_CustomerInfo',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '外键',
@@ -2102,6 +2116,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'T9_Repair_flow',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '编号',
@@ -2168,6 +2183,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9R_RepairId',
         typeMeta: {
           relationModel: 'T9_NewRepairParts',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '派单编号',
@@ -2184,6 +2200,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9R_CarId',
         typeMeta: {
           relationModel: 'T9_Car',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '汽车编号',
@@ -2430,6 +2447,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9W_Class',
         typeMeta: {
           relationModel: 'T9_ClassGroup',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '班组',
@@ -2460,6 +2478,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9P_Partsid',
         typeMeta: {
           relationModel: 'T9_PartManger',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '配件名称',
@@ -2520,6 +2539,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9C_CarType',
         typeMeta: {
           relationModel: 'T9_CarStyle',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '车型',
@@ -2574,6 +2594,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9P_PartsId',
         typeMeta: {
           relationModel: 'T9_PartManger',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '配件名称',
@@ -2622,6 +2643,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'T9_PartsPrice',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: 'FID',
@@ -2656,6 +2678,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9P_CarKind',
         typeMeta: {
           relationModel: 'T9_CarStyle',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '车系',
@@ -2846,7 +2869,7 @@ export const nodes: NodeData[] = [
     label: '车型表',
     module: 'T9engSQ',
     fields: [
-      {
+      { 
         type: 'nvarchar(50)',
         name: 'FID',
         originalKey: 'FID',
@@ -2864,6 +2887,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9C_SeriesID',
         typeMeta: {
           relationModel: 'T9_CarKind',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '车系ID',
@@ -3039,6 +3063,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'T9_Procurement',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: 'FID',
@@ -3137,6 +3162,7 @@ export const nodes: NodeData[] = [
         originalKey: 'T9C_BrandFID',
         typeMeta: {
           relationModel: 'T9_CarBrand',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: '品牌FID',
@@ -3207,6 +3233,7 @@ export const nodes: NodeData[] = [
         originalKey: 'FID',
         typeMeta: {
           relationModel: 'T9_PartManger',
+          relationField: 'FID',
           type: 'Relation',
         },
         label: 'FID',
@@ -3631,24 +3658,9 @@ export type NodeData = {
     type?: string;
     typeMeta?: {
       relationModel: string;
+      relationField: string;
       type: string;
     };
     label: string;
   })[];
 }
-
-export const edges = nodes.flatMap(sourceNode => {
-  return sourceNode.fields.map(field => {
-    if (field.typeMeta) {
-      return {
-        source: sourceNode.originalKey,
-        target: field.typeMeta.relationModel
-      }
-    }
-
-    return null
-  }).filter(v => !!v) as {
-    source: string;
-    target: string;
-  }[]
-})
